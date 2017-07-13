@@ -1,6 +1,27 @@
-<%= link_to  "Crear Post", new_post_path, class: 'btn btn-primary' %>
-
-<% @posts.each do |post| %>
-  <h2><%= post.title %></h2>
-  <p><%= post.body %></p>
-<% end %>
+<div class="container">
+  <div class="row">
+    <div class="col-sm-6 col-sm-offset-3">
+      <% if user_signed_in? %>
+        <%= link_to  "Crear Post", new_post_path, class: 'btn btn-primary pull-right' %>
+      <% end %>
+      <table class="table">
+        <tbody>
+          <% @posts.each do |post| %>
+            <tr>
+              <td>
+                <h2><%= link_to  post.title, post %></h2>
+                <!-- Usar un substring para el preview de maximo 250 caracteres en el index para el body -->
+                <p><%= post.body %></p>
+              </td>
+              <% if user_signed_in? %>
+                <td>
+                  <h1><%= link_to  "<span class='glyphicon glyphicon-trash'></span>".html_safe, post, method: :delete, data: { confirm: "¿Estás seguro de eliminar este post?" } %></h1>
+                </td>
+              <% end %>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
