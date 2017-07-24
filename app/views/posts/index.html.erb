@@ -10,12 +10,14 @@
             <tr>
               <td>
                 <h2><%= link_to  post.title, post %></h2>
+                <h6>Publicado por <%= post.user.email %> hace <%= time_ago_in_words(post.created_at) %></h6>
                 <!-- Usar un substring para el preview de maximo 250 caracteres en el index para el body -->
-                <p><%= post.body %></p>
+                <p><%= post.body[0...250] %></p>
               </td>
-              <% if user_signed_in? %>
+              <% if user_signed_in? && current_user == post.user %>
                 <td>
                   <h1><%= link_to  "<span class='glyphicon glyphicon-trash'></span>".html_safe, post, method: :delete, data: { confirm: "¿Estás seguro de eliminar este post?" } %></h1>
+                  <h1><%= link_to  "<span class='glyphicon glyphicon-pencil'></span>".html_safe, edit_post_path(post) %></h1>
                 </td>
               <% end %>
             </tr>
