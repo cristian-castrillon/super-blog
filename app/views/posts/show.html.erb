@@ -5,4 +5,30 @@
       <p><%= @post.body %></p>
     </div>
   </div>
+
+  <div class="row">
+    <div class="col-sm-6 col-sm-offset-3">
+      <div class="comments">
+        <h2>Comentarios</h2>
+        <% @post.comments.each do |comment| %>
+          <header class="panel-heading">
+            <h4><%= comment.user.email %> comentó hace <%= time_ago_in_words(comment.created_at) %></h4>
+          </header>
+          <div class="panel-body"><%= comment.content %></div>
+        <% end %>
+
+        <% if user_signed_in? %>
+          <%= form_for [@post, @post.comments.build] do |f| %>
+            <div class="form-group">
+              <%= f.text_area :content, class: "form-control", placeholder: "Agregar comentario" %>
+            </div>
+
+            <div class="actions text-right">
+              <%= f.submit "Comentar", class: "btn btn-primary" %>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  </div>
 </div>
