@@ -1,9 +1,7 @@
 <div class="container">
   <div class="row">
     <div class="col-sm-6 col-sm-offset-3">
-      <% if user_signed_in? %>
-        <%= link_to  "Crear Post", new_post_path, class: 'btn btn-primary pull-right' %>
-      <% end %>
+      
       <table class="table">
         <tbody>
           <% @posts.each do |post| %>

@@ -9,13 +9,27 @@
   </head>
 
   <body>
-    <%= link_to  "Posts", root_path %>
-    <% if user_signed_in? %>
-      <%= link_to  "Salir", destroy_user_session_path, method: "delete" %>
-    <% else %>
-      <%= link_to  "Acceder", new_user_session_path %>
-      <%= link_to  "Registrarse", new_user_registration_path %>
-    <% end %>
+    
+    <div class="navbar navbar-default">
+      <div class="container-fluid">
+        <div class="container">
+          <div class="navbar-header">
+            <%= link_to  "Posts", root_path, class: "navbar-brand" %>
+          </div>
+          
+          <ul class="nav navbar-nav navbar-right">
+            <% if user_signed_in? %>
+              <li><%= link_to  "Crear Post", new_post_path %></li>
+              <li><%= link_to  "Salir", destroy_user_session_path, method: "delete" %></li>
+            <% else %>
+              <li><%= link_to  "Ingresar", new_user_session_path %></li>
+              <li><%= link_to  "Registrarse", new_user_registration_path %></li>
+            <% end %>
+          </ul>
+        </div>
+      </div>
+    </div>
+    
 
     <% if flash[:notice] %>
       <div class="alert alert-info"><%= flash[:notice] %></div>
